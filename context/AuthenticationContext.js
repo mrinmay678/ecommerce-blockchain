@@ -20,6 +20,8 @@ export const AuthenticationProvider = ({ children }) => {
     useEffect(() => {
         (
             async () => {
+                console.log('isAuthenticated', isAuthenticated);
+                console.log('isWebEnabled', isWebEnabled);
                 if (isAuthenticated) {
                     const name = await user?.get("name");
                     const username = await user?.get("username");

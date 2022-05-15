@@ -42,7 +42,7 @@ export const Sidebar = () => {
                     }
                 </Text>
                 {
-                    isAuthenticated && user.name!=null? (
+                    isAuthenticated && (user.name!=null || user.name==="undefined")? (
                         <Flex
                             flexDirection="column"
                             justify="center"
