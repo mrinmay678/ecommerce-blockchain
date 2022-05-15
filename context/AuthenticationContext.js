@@ -7,6 +7,7 @@ export const AuthenticationProvider = ({ children }) => {
 
     const [username, setUsername] = useState('');
     const [name, setName] = useState(null);
+    const [displayName, setDisplayName] = useState(null);
 
     const {
         authenticate,
@@ -20,8 +21,6 @@ export const AuthenticationProvider = ({ children }) => {
     useEffect(() => {
         (
             async () => {
-                console.log('isAuthenticated', isAuthenticated);
-                console.log('isWebEnabled', isWebEnabled);
                 if (isAuthenticated) {
                     const name = await user?.get("name");
                     const username = await user?.get("username");
@@ -30,11 +29,13 @@ export const AuthenticationProvider = ({ children }) => {
                 }
             }
         )();
-    }, [isAuthenticated, user, username]);
+    }, [isAuthenticated, user]);
 
     const handleName = () => {
-        if(isAuthenticated && name){
-            user.set("name", name);
+        setName(displayName);
+        console.log(displayName);
+        if(isAuthenticated && displayName){
+            user.set("name", displayName);
             user.save();
         }
         else {
@@ -46,8 +47,7 @@ export const AuthenticationProvider = ({ children }) => {
         <AuthenticationContext.Provider value={{
             isAuthenticated,
             handleName,
-            user,
-            setName,
+            setDisplayName,
             name
         }}>
             {children}

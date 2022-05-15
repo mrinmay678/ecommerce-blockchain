@@ -5,7 +5,7 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 
 export const Sidebar = () => {
 
-    const { isAuthenticated, handleName, user, setName, name } = useContext(AuthenticationContext);
+    const { isAuthenticated, handleName, setDisplayName, name } = useContext(AuthenticationContext);
     const getUser = () => {
         return {
             name: name,
@@ -38,11 +38,11 @@ export const Sidebar = () => {
                 />
                 <Text as="h4">
                     Welcome{
-                        isAuthenticated ? `, ${getUser().name}` : ""
+                        isAuthenticated && name ? `, ${getUser().name}` : ""
                     }
                 </Text>
                 {
-                    isAuthenticated && (user.name!=null || user.name==="undefined")? (
+                    (isAuthenticated && !name) ? (
                         <Flex
                             flexDirection="column"
                             justify="center"
@@ -50,7 +50,7 @@ export const Sidebar = () => {
                             rowGap={0.5}
                         >
                             <Input type="text" placeholder="Enter Your Name" onChange={(e)=>{
-                                setName(e.target.value);
+                                setDisplayName(e.target.value);
                             }} />
                             <Button onClick={handleName}>Set Name</Button>
                         </Flex>
