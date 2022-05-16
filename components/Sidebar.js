@@ -1,9 +1,9 @@
-import { Button, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, Image, Input, Link, ListItem, Text, UnorderedList, Box } from "@chakra-ui/react";
 import { ConnectButton } from "web3uikit";
 import { useContext } from "react";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
 
     const { isAuthenticated, handleName, setDisplayName, name } = useContext(AuthenticationContext);
     const getUser = () => {
@@ -16,10 +16,19 @@ export const Sidebar = () => {
         <Flex
             flexDirection="column"
             w={["15rem", "20rem"]}
-            h="full"
+            h="100vh"
             bg="#fff"
             borderRight="1px solid #e6e6e6"
+            justify="space-between"
+            p="1rem"
+            position="fixed"
+            {...props}
         >
+            <Text
+                as="h2"
+                fontSize={["1.25rem", "2rem"]}
+                fontWeight={700}
+            >Team Youngster</Text>
             <Flex
                 flexDirection="column"
                 gridGap="0.75rem"
@@ -28,17 +37,22 @@ export const Sidebar = () => {
                 bg="#1E90FF"
                 borderRadius="10%"
                 border="none"
-                m="1rem"
                 p="1rem"
             >
                 <Image
                     src="/images/avatar.jpeg"
                     alt="avatar"
                     borderRadius="50%"
+                    w="70%"
                 />
-                <Text as="h4">
+                <Text
+                    as="h4"
+                    color="white"
+                    fontWeight={600}
+                    fontSize="1.25rem"
+                >
                     Welcome{
-                        isAuthenticated && name ? `, ${getUser().name}` : ""
+                        isAuthenticated && name ? ` ${getUser().name}` : ""
                     }
                 </Text>
                 {
@@ -57,6 +71,127 @@ export const Sidebar = () => {
                     ): null
                 }
                 <ConnectButton />
+            </Flex>
+            <Flex
+                flexDirection="column"
+                justify="flex-start"
+                align="flex-start"
+                fontSize={["1rem", "1.25rem"]}
+                mb={6}
+            >
+                <UnorderedList
+                    listStyleType="none"
+                    w="full"
+                    p={0}
+                    spacing={6}
+                >
+                    <ListItem
+                    >
+                        <Link
+                            href="/"
+                            textDecoration="none"
+                            _hover={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Flex
+                                flexDirection="row"
+                                justify="flex-start"
+                                align="center"
+                                gridGap={6}
+                            >
+                                <i className="fa-solid fa-house-chimney"></i>{" "}
+                                <Text>
+                                    Home
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link
+                            href="/orders"
+                            textDecoration="none"
+                            _hover={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Flex
+                                flexDirection="row"
+                                justify="flex-start"
+                                align="center"
+                                gridGap={6}
+                            >
+                                <i className="fa-solid fa-credit-card"></i>{" "}
+                                <Text>
+                                    Orders
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link
+                            href="/cart"
+                            textDecoration="none"
+                            _hover={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Flex
+                                flexDirection="row"
+                                justify="flex-start"
+                                align="center"
+                                gridGap={6}
+                            >
+                                <i className="fa-solid fa-cart-shopping"></i>{" "}
+                                <Text>
+                                    Cart
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link
+                            href="/support"
+                            textDecoration="none"
+                            _hover={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Flex
+                                flexDirection="row"
+                                justify="flex-start"
+                                align="center"
+                                gridGap={6}
+                            >
+                                <i className="fa-solid fa-circle-info"></i>{" "}
+                                <Text>
+                                    Support
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link
+                            href="/settings"
+                            textDecoration="none"
+                            _hover={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <Flex
+                                flexDirection="row"
+                                justify="flex-start"
+                                align="center"
+                                gridGap={6}
+                            >
+                                <i className="fa-solid fa-cog"></i>{" "}
+                                <Text>
+                                    Settings
+                                </Text>
+                            </Flex>
+                        </Link>
+                    </ListItem>
+                </UnorderedList>
             </Flex>
         </Flex>
     );
