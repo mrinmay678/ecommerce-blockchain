@@ -48,7 +48,8 @@ export const AuthenticationProvider = ({ children }) => {
             isAuthenticated,
             handleName,
             setDisplayName,
-            name
+            name,
+            user
         }}>
             {children}
         </AuthenticationContext.Provider>

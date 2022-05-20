@@ -5,11 +5,12 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 
 export const Sidebar = (props) => {
 
-    const { isAuthenticated, handleName, setDisplayName, name } = useContext(AuthenticationContext);
+    const { isAuthenticated, handleName, setDisplayName, name, user } = useContext(AuthenticationContext);
     const getUser = () => {
         return {
             name: name,
-            avatar: "https://i.pravatar.cc/300"
+            avatar: "https://i.pravatar.cc/300",
+            role: user?.get("role")
         }
     }
     return (
@@ -21,7 +22,8 @@ export const Sidebar = (props) => {
             borderRight="1px solid #e6e6e6"
             justify="space-between"
             p="1rem"
-            position="fixed"
+            position="sticky"
+            top={0}
             {...props}
         >
             <Text
@@ -107,7 +109,7 @@ export const Sidebar = (props) => {
                             </Flex>
                         </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem display={getUser().role==="admin"?"none":"block"}>
                         <Link
                             href="/orders"
                             textDecoration="none"
@@ -128,7 +130,7 @@ export const Sidebar = (props) => {
                             </Flex>
                         </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem display={getUser().role==="admin"?"none":"block"}>
                         <Link
                             href="/cart"
                             textDecoration="none"
