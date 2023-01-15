@@ -1,0 +1,57 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo:latest
+    env_file:
+      - ./backend.env
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  redis:
+    image: 'bitnami/redis:latest'
+    networks:
+      - app-network
+    ports:
+      - 7000:7000
+    env_file:
+      - ./backend.env
+
+  api_server:
+    build: backend
+    env_file:
+      - ./backend.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
+      - redis
+
+  ui:
+    build:
+      context: ui
+      dockerfile: prod.Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - ./frontend.env
+    depends_on:
+      - api_server
+
+  nginx:
+    build: nginx
+    depends_on:
+      - api_server
+      - ui
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  mongodb_data_container:
