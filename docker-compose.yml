@@ -35,7 +35,7 @@ services:
 
   ui:
     build:
-      context: ui
+      context: frontend
       dockerfile: prod.Dockerfile
     ports:
       - 3000:3000

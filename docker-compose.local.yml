@@ -39,7 +39,7 @@ services:
 
   ui:
     build:
-      context: ui
+      context: frontend
       dockerfile: Dockerfile
     env_file:
       - ./frontend.local.env
